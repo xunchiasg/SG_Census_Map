@@ -30,4 +30,5 @@ response = requests.get(url)
 print(response.json())
 
 ```
+![SG_data_HTML](https://github.com/user-attachments/assets/33c08950-7253-4521-aac0-8ecf2d121d65)
 
