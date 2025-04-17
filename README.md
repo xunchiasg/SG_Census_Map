@@ -28,6 +28,27 @@ url = "https://data.gov.sg/api/action/datastore_search?resource_id="  + dataset_
         
 response = requests.get(url)
 print(response.json())
+https
+```
+## Workflow 
+This section provides an overview on the key steps undertaken to clean and import the data. For detailed steps, refer to 'SG_Census.ipynb'
+
+The workflow diagram the key criteria and processes undertaken to allow for key findings for the provided data. This includes the use of specific libraries (geopandas, beautifulsoup) in preparation to allow merging of the required datasets.
+
+[]()
+
+#### Census Dataset
+Access to the dataset was done via API query, where general cleaning and data manipulation using pandas was required. This included: 
+
+- General Change of Object Dtype to INT64
+- Copy record of dataset totals at index 1 to new df copy
+- Copy records which contain additions of subzones E.g. "Ang Mo Kio - Total' to new df copy as these indicate rounding up of subzone population for each district
+
+#### Geospatial Dataset
+Access to the dataset was done via API query. The response output was in in GEOJSON, along with data within a column containing tabled data in HTML format. This included variables such as subzones and their respective regions which had to be parsed via Beautiful Soup into the target dataframe. 
 
 ```
 
+
+
+```
