@@ -48,6 +48,7 @@ Access to the dataset was done via API query, where general cleaning and data ma
 Access to the dataset was done via API query. The response output was in in GEOJSON, along with data within a column containing tabled data in HTML format. This included variables such as subzones and their respective regions which had to be parsed via Beautiful Soup into the target dataframe. 
 
 ```
+![SG_data_HTML](https://github.com/user-attachments/assets/33c08950-7253-4521-aac0-8ecf2d121d65)
 
 
 
