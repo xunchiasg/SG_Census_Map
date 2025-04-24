@@ -1,6 +1,10 @@
 # SG Census Map
 Geospatial analysis of Singapore population with data from data.gov.sg
 
+![landing_v0](https://github.com/user-attachments/assets/753c678c-7897-404c-a921-25c0e04fafab)
+
+*Version 0*
+
 ## About 
 [data.gov.sg](https://data.gov.sg/) is an open data platform by Open Goverment Products (OGP) which collates and maintains all publicly available datasets by various agencies and ministries under the Singapore government. The datasets and API endpoints on the portal are freely available for personal and commercial use [(Open data license)](https://data.gov.sg/open-data-licence).
 
