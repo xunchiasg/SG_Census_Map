@@ -1,5 +1,9 @@
 # SG Census Map
-Geospatial analysis of Singapore population with data from data.gov.sg
+Geospatial dashboard app of Singapore population metrices with data from data.gov.sg
+
+![landing_v0](https://github.com/user-attachments/assets/753c678c-7897-404c-a921-25c0e04fafab)
+
+*Version 0*
 
 ## About 
 [data.gov.sg](https://data.gov.sg/) is an open data platform by Open Goverment Products (OGP) which collates and maintains all publicly available datasets by various agencies and ministries under the Singapore government. The datasets and API endpoints on the portal are freely available for personal and commercial use [(Open data license)](https://data.gov.sg/open-data-licence).
@@ -54,4 +58,12 @@ gdf output post-cleaning:
 ![SG_region](https://github.com/user-attachments/assets/734723d9-057e-40c7-9edd-3bb8b8179948)
 *Region Map*
 
-### Python Script (Streamlit, Folium)
+### Python Script and Deployment 
+
+The [Plotly Dash](https://dash.plotly.com/) framework, which includes the Plotly graphing library was used to build an interactive data app using a seperate Python script. The app also incorporates the use of Dash Bootstrap Components (dbc) with deployment on Google Cloud Run. 
+
+Dash components within the app were selected to allow for user exploration and analysis of the combined dataframes, although certain key population indicators are displayed by default via ```dcc.store``` for state saving. Usage of the dashboard aims to understand key datapoints, including: 
+
+- Observation 1
+- Observation 2
+- Observation 3
