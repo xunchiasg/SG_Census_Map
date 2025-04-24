@@ -14,7 +14,7 @@ try:
     # Load cleaned geospatial data (GEOJSON)
     gdf = gpd.read_file('./data/gdf_cleaned.geojson')
     
-    # Merge on shared key
+    # Merge on shared key (Left Join)
     df['Subzone'] = df['Subzone'].astype(str)
     gdf['Subzone'] = gdf['Subzone'].astype(str)
     df_merged = gdf.merge(df, on='Subzone', how='left')
@@ -25,15 +25,6 @@ try:
 except Exception as e:
     print(f"Error loading data: {str(e)}")
     raise
-
-#----------------------------------------------------------------------------------------
-
-# def get_region_totals(region_name):
-#     """
-#     Function to sum all population totals for a given region.
-#     """
-#     region_data = df_merged[df_merged['Region'] == region_name]
-#     return region_data['Subzone Total'].sum()
 
 #----------------------------------------------------------------------------------------
 # Dash App 
@@ -92,6 +83,17 @@ sidebar = html.Div(
 
 # ***MAIN CONTENT***
 
+# Dropdown component 
+region_dropdown = dcc.Dropdown(
+    id="region-dropdown",
+    options=[{"label": "All", "value": "ALL"}] + [
+        {"label": region.title(), "value": region}
+        for region in df_merged["Region"].dropna().unique()
+    ], # type: ignore
+    value="ALL",  # Default to "All"
+    clearable=False,
+)
+
 # Main content styling 
 CONTENT_STYLE = {
     "margin-left": "18rem",
@@ -101,7 +103,14 @@ CONTENT_STYLE = {
 
 # Content component 
 
-content = html.Div(id="page-content", style=CONTENT_STYLE)
+content = html.Div([
+    region_dropdown,
+    dcc.Graph(id="region-map"),
+    html.Div(id="region-total", style={"marginTop": "20px"})
+], style=CONTENT_STYLE)
+
+
+# *** TOP TAB ***
 
 #----------------------------------------------------------------------------------------
 # App layout 
@@ -111,33 +120,45 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 # ------------------------------------
 # Callbacks
 # ------------------------------------
-# @app.callback(
-#     Output('region-map', 'figure'),
-#     Output('region-total', 'children'),
-#     Input('region-dropdown', 'value')
-# )
-# def update_map(region_name):
-#     filtered = df_merged[df_merged['Region'] == region_name]
+@app.callback(
+    Output('region-map', 'figure'),
+    Output('region-total', 'children'),
+    Input('region-dropdown', 'value')
+)
+def update_map(selected_region):
+    if selected_region == "ALL":
+        filtered = df_merged.copy()
+    else:
+        filtered = df_merged[df_merged['Region'] == selected_region].copy()
 
-#     fig = px.choropleth_mapbox(
-#         filtered,
-#         geojson=filtered.__geo_interface__,
-#         locations=filtered.index,
-#         color="Subzone Total",  # or change to another variable
-#         mapbox_style="carto-positron",
-#         zoom=10,
-#         center=map_center,
-#         color_continuous_scale="Viridis",
-#         hover_name="Subzone",
-#         labels={"Subzone Total": "Unemployment Rate"},
-#     )
+    # Ensure the target column is numeric
+    filtered["Subzone Total"] = pd.to_numeric(filtered["Subzone Total"], errors="coerce")
 
-#     fig.update_layout(margin={"r":0, "t":0, "l":0, "b":0})
+    # Build the choropleth map
+    fig = px.choropleth_mapbox(
+        filtered,
+        geojson=filtered.geometry,
+        locations=filtered.index,
+        color="Subzone Total",
+        color_continuous_scale="Viridis",
+        range_color=(0, filtered["Subzone Total"].max()),
+        mapbox_style="carto-positron",
+        zoom=10
+        center={"lat": 1.3521, "lon": 103.8198},
+        opacity=0.7,
+        labels={"Subzone Total": "Subzone Total"}
+    )
 
-#     total = get_region_total(region_name)
-#     total_text = f"Total Subzone Population: {int(total):,}"
+    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
-#     return fig, total_text
+    # Compute the total
+    total = filtered["Subzone Total"].sum(skipna=True)
+    label = "Total for All Regions" if selected_region == "ALL" else f"Total for {selected_region}"
+    total_display = f"{label}: {int(total):,}"
+
+    return fig, total_display
+
+
 
 # ------------------------------------
 # Run App
