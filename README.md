@@ -3,13 +3,7 @@ Geospatial dashboard app of Singapore population metrices with data from data.go
 
 [Streamlit App](https://sgcensusmap-squidoo.streamlit.app/)
 
-![landing_v0](https://github.com/user-attachments/assets/753c678c-7897-404c-a921-25c0e04fafab)
-
-*Version 0*
-
-![landing_v0](https://github.com/user-attachments/assets/753c678c-7897-404c-a921-25c0e04fafab)
-
-*Version 0*
+![screencap_1](https://github.com/user-attachments/assets/d9f4b301-3377-4b08-b3e2-8cd5b193c9a7)
 
 ## About 
 [data.gov.sg](https://data.gov.sg/) is an open data platform by Open Goverment Products (OGP) which collates and maintains all publicly available datasets by various agencies and ministries under the Singapore government. The datasets and API endpoints on the portal are freely available for personal and commercial use [(Open data license)](https://data.gov.sg/open-data-licence).
@@ -64,13 +58,5 @@ gdf output post-cleaning:
 ![SG_region](https://github.com/user-attachments/assets/734723d9-057e-40c7-9edd-3bb8b8179948)
 *Region Map*
 
-### Python Script (Streamlit)
-
+## Python Script (Streamlit)
 [Streamlit](https://streamlit.io/) platform and library was used to create and deploy a Python script/dashboard containing the above demographic data derived through the above steps, and includes the use of Plotly graphing library within. 
-
-
-
-
-- Observation 1
-- Observation 2
-- Observation 3
