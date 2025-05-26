@@ -1,6 +1,8 @@
 # SG Census Map
 Geospatial dashboard app of Singapore population metrices with data from data.gov.sg
 
+[Streamlit App](https://sgcensusmap-squidoo.streamlit.app/)
+
 ![landing_v0](https://github.com/user-attachments/assets/753c678c-7897-404c-a921-25c0e04fafab)
 
 *Version 0*
@@ -58,11 +60,12 @@ gdf output post-cleaning:
 ![SG_region](https://github.com/user-attachments/assets/734723d9-057e-40c7-9edd-3bb8b8179948)
 *Region Map*
 
-### Python Script and Deployment 
+### Python Script (Streamlit)
 
-The [Plotly Dash](https://dash.plotly.com/) framework, which includes the Plotly graphing library was used to build an interactive data app using a seperate Python script. The app also incorporates the use of Dash Bootstrap Components (dbc) with deployment on Google Cloud Run. 
+[Streamlit](https://streamlit.io/) platform and library was used to create and deploy a Python script/dashboard containing the above demographic data derived through the above steps, and includes the use of Plotly graphing library within. 
 
-Dash components within the app were selected to allow for user exploration and analysis of the combined dataframes, although certain key population indicators are displayed by default via ```dcc.store``` for state saving. Usage of the dashboard aims to understand key datapoints, including: 
+
+
 
 - Observation 1
 - Observation 2
